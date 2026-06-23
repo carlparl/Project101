@@ -46,7 +46,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "Traffic.urls"
+ROOT_URLCONF = "config.urls"
 
 # --- Template Render Processing ---
 TEMPLATES = [
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "Traffic.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # --- Database Architecture Mapping ---
