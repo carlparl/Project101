@@ -18,7 +18,7 @@ SECRET_KEY = env("SECRET_KEY", default="replace-me-before-production-run")
 
 DEBUG = False  # Always set to False in production for security hardening
 ALLOWED_HOSTS = ALLOWED_HOSTS = [
-    "carlparl.pythonanywhere.com",
+    "https://project101-k7fb.onrender.com/",
     "127.0.0.1",
     "localhost",
 ]
