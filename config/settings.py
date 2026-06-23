@@ -16,12 +16,11 @@ if env_file.exists():
 # --- Core Security Configuration ---
 SECRET_KEY = env("SECRET_KEY", default="replace-me-before-production-run")
 
-DEBUG = False  # Always set to False in production for security hardening
-ALLOWED_HOSTS = ALLOWED_HOSTS = [
-    "project101-k7fb.onrender.com",
-    "127.0.0.1",
-    "localhost",
-]
+# Dynamically reads from environment variable; defaults to False for strict production safety
+DEBUG = env.bool("DEBUG", default=False)
+
+# Dynamically parses comma-separated host strings from Render, falls back to local setups
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["project101-k7fb.onrender.com", "127.0.0.1", "localhost"])
 
 
 # --- Application Definitions ---
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Optimized production asset asset-delivery
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -113,9 +113,18 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# WhiteNoise storage configuration for compression and caching
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 
 # --- Automated Messaging & SMTP Gateway Configuration ---
-# Uses the local console backend if no custom environment settings are defined.
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
@@ -123,8 +132,7 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 
-# Operational Notification Routing targets used by your clean views
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Shafnet Tours <noreply@shafnettours.com>")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Shafnet Tours <shafnettours@gmail.com>")
 CONTACT_EMAIL = env("CONTACT_EMAIL", default="info@shafnettours.com")
 
 
@@ -140,12 +148,3 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = "DENY"
-
-    import os
-
-
-
-# Email Configuration Blueprint (Development Sandbox)
-# This prints all outgoing emails cleanly inside your terminal console for free.
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'shafnettours@gmail.com'
