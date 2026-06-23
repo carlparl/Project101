@@ -6,7 +6,9 @@ from .forms import InquiryForm
 
 def home(request):
     """Main Landing Deck - Pulls the top 3 featured safaris efficiently."""
-    tours = Tour.objects.all().only('id', 'title', 'image', 'price', 'location', 'duration')[:3]
+    # FIX: Use actual database fields ('destination', 'duration_days') inside .only() 
+    # instead of the @property names ('location', 'duration').
+    tours = Tour.objects.all().only('id', 'title', 'image', 'price', 'destination', 'duration_days')[:3]
     return render(request, 'core/home.html', {'tours': tours})
 
 def tours_list(request):
@@ -64,6 +66,6 @@ def contact(request):
 
     context = {
         'form': form,
-        'tours': tours,
+        'tours': tours
     }
     return render(request, 'core/contact.html', context)

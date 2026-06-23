@@ -17,7 +17,7 @@ if env_file.exists():
 SECRET_KEY = env("SECRET_KEY", default="replace-me-before-production-run")
 
 # Dynamically reads from environment variable; defaults to False for strict production safety
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = env.bool("DEBUG", default=True)
 
 # Dynamically parses comma-separated host strings from Render, falls back to local setups
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["project101-k7fb.onrender.com", "127.0.0.1", "localhost"])

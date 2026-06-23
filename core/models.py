@@ -31,47 +31,29 @@ class Tour(models.Model):
         """Fallback property mapping to duration_days for templates using tour.duration."""
         return f"{self.duration_days} Days"
 
-    @property
-    def description(self):
-        """Fallback property mapping to detailed_itinerary or short_description for templates using tour.description."""
-        return self.detailed_itinerary or self.short_description
-
 
 class BookingRequest(models.Model):
     package = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="bookings")
     full_name = models.CharField(max_length=200)
     email = models.EmailField()
-    phone = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50, blank=True, null=True)
     travel_date = models.DateField()
-    travelers = models.PositiveIntegerField()
+    travelers = models.PositiveIntegerField(default=1)
     special_requests = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ["-created_at"]
-
-    def __str__(self):
-        return f"{self.full_name} - {self.package.title}"
-
-
-class GalleryImage(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="gallery", null=True, blank=True)
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="gallery/")
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.tour} - {self.title}"
+        return f"Booking by {self.full_name} for {self.package.title}"
 
 
 class Testimonial(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="testimonials", null=True, blank=True)
-    name = models.CharField(max_length=200)
-    comment = models.TextField()
-    rating = models.PositiveSmallIntegerField(default=5)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="testimonials")
+    name = models.CharField(max_length=100)
+    review = models.TextField()
+    rating = models.PositiveIntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
@@ -106,10 +88,10 @@ class Inquiry(models.Model):
     start_date = models.DateField(blank=True, null=True)
     group_size = models.PositiveIntegerField(default=1)
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
-        verbose_name_plural = "Inquiries"
-    
+        ordering = ["-created_at"]
+
     def __str__(self):
-        return f"Inquiry from {self.name} - {self.tour_selection or 'Custom Route'}"
+        return f"{self.name} - Web Inquiry"
