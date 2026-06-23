@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Core Application Component Workspace
-    "Traffic",
+    "traffic",
 ]
 
 MIDDLEWARE = [
