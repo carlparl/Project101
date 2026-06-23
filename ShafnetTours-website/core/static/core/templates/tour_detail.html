@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tour.title }} | Shafnet Tours & Travel{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* --- Premium Page Header with Contrast Overlay --- */
+    .detail-hero-wrapper {
+        min-height: 45vh;
+        background: linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.75) 0%,
+            rgba(15, 23, 42, 0.50) 100%
+        ),
+        url('{% if tour.image %}{{ tour.image.url }}{% else %}{% static "images/safari_bg.jpg" %}{% endif %}') no-repeat center center / cover;
+        padding-top: 6rem;
+    }
+
+    .detail-hero-heading {
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: -0.02em;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .meta-pill {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* --- Sticky Dynamic Booking Sidebar --- */
+    .sticky-sidebar-card {
+        position: sticky;
+        top: 6.5rem;
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+
+    .form-control-premium {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.9rem;
+        color: #0f172a;
+        transition: all 0.25s ease;
+        display: block;
+        width: 100%;
+    }
+
+    .form-control-premium:focus {
+        background-color: #ffffff;
+        border-color: var(--brand-green);
+        box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
+        outline: none;
+    }
+
+    /* --- Itinerary Component Timeline --- */
+    .itinerary-timeline {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .itinerary-timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 10px;
+        bottom: 10px;
+        width: 2px;
+        background-color: #e2e8f0;
+    }
+
+    .timeline-node {
+        position: relative;
+        padding-bottom: 2rem;
+    }
+
+    .timeline-node::before {
+        content: '';
+        position: absolute;
+        left: -2rem;
+        top: 4px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        border: 3px solid var(--brand-green);
+        z-index: 2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Master Header Frame -->
+<div class="detail-hero-wrapper d-flex align-items-center text-white mb-5">
+    <div class="container py-4">
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <span class="meta-pill"><i class="bi bi-geo-alt-fill me-1"></i>{{ tour.location|default:"East Africa" }}</span>
+            <span class="meta-pill"><i class="bi bi-clock-fill me-1"></i>{{ tour.duration|default:"Custom Horizon" }}</span>
+            {% if tour.price %}
+                <span class="meta-pill"><i class="bi bi-tag-fill me-1"></i>From ${{ tour.price }}</span>
+            {% endif %}
+        </div>
+        <h1 class="fw-bold detail-hero-heading m-0">{{ tour.title }}</h1>
+    </div>
+</div>
+
+<!-- Main Architecture Layout Grid -->
+<div class="container mb-5">
+    <div class="row g-5">
+        
+        <!-- Left Column: Detailed Overview & Track Itinerary -->
+        <div class="col-lg-7 col-xl-8">
+            <div class="mb-5">
+                <h3 class="fw-bold text-dark mb-3">Expedition Overview</h3>
+                <p class="text-muted lh-lg">{{ tour.description }}</p>
+            </div>
+
+            <hr class="border-light-subtle my-5">
+
+            <!-- Itinerary Timeline Section -->
+            <div>
+                <h3 class="fw-bold text-dark mb-4">Planned Route Schedule</h3>
+                <div class="itinerary-timeline">
+                    
+                    <!-- Core Sample Loop Block (Replace static days with a dynamic child model loop if available) -->
+                    <div class="timeline-node">
+                        <h5 class="fw-bold text-dark mb-1">Day 1: Arrival & Ecosystem Insertion</h5>
+                        <p class="text-muted small mb-0">Arrive at primary logistics terminal. Clear track parameters with operations guide before heading out to your initial wilderness base setup.</p>
+                    </div>
+
+                    <div class="timeline-node">
+                        <h5 class="fw-bold text-dark mb-1">Day 2: Intensive Core Field Exploration</h5>
+                        <p class="text-muted small mb-0">Early sunrise transit tracking. Deep exploration deployment across key territory sectors accompanied by certified tracking staff.</p>
+                    </div>
+
+                    <div class="timeline-node mb-0 pb-0">
+                        <h5 class="fw-bold text-dark mb-1">Day 3: Route Outbound Demobilization</h5>
+                        <p class="text-muted small mb-0">Mid-morning closing exploration run. Complete path documentation processing and mid-afternoon return transit configuration back to transit hubs.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Sidebar Booking Module -->
+        <div class="col-lg-5 col-xl-4">
+            <div class="sticky-sidebar-card p-4">
+                <h5 class="fw-bold text-dark mb-1">Reserve This Safari</h5>
+                <p class="text-muted small mb-4">Secure your slot parameters or modify tracking routes immediately.</p>
+
+                <!-- Local Intercept Reservation Form -->
+                <form method="POST" action="{% url 'contact' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <!-- Pre-selects current package title implicitly inside validation workflow -->
+                    <input type="hidden" name="tour_selection" value="{{ tour.title }}">
+
+                    <div class="d-flex flex-column gap-3">
+                        <div>
+                            <label class="form-label small fw-semibold text-dark">Full Name</label>
+                            <input type="text" name="name" class="form-control-premium" placeholder="John Doe" required>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-semibold text-dark">Email Address</label>
+                            <input type="email" name="email" class="form-control-premium" placeholder="johndoe@example.com" required>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold text-dark">Start Date</label>
+                                <input type="date" name="start_date" class="form-control-premium">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold text-dark">Group Size</label>
+                                <input type="number" name="group_size" class="form-control-premium" min="1" max="50" value="1">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-semibold text-dark">Operational Special Requests</label>
+                            <textarea name="message" class="form-control-premium" rows="3" placeholder="Specify logistical requests, gear spaces, or dietary constraints..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn text-white w-100 py-2 fw-medium mt-2" style="background-color: var(--brand-green); border-radius: 6px; font-size: 0.95rem;">
+                            Initialize Booking Request
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-4 pt-3 border-top text-center">
+                    <span class="text-muted fs-7"><i class="bi bi-shield-check me-1 text-success"></i> Secure 12-Hour Operational Callback Guaranteed</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Form Validation Runner -->
+<script>
+    (() => {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+</script>
+{% endblock %}
