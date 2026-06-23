@@ -21,15 +21,6 @@
         margin-bottom: 0.75rem;
     }
 
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="background-color: rgba(43, 122, 75, 0.1); color: var(--brand-green);">
-            <i class="bi bi-shield-check-fill me-2"></i> {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endfor %}
-{% endif %}
-
     /* Interactive Form Input Architecture */
     .form-control-premium {
         background-color: #f8fafc;

@@ -1,39 +1,38 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
 from django.contrib import messages
 from django.core.mail import send_mail 
-from .models import Tour, Inquiry
+from .models import Tour
 from .forms import InquiryForm
 
-# 1. Main Landing Deck
 def home(request):
-    tours = Tour.objects.all()[:3] # Shows top 3 feature safaris on home page
+    """Main Landing Deck - Pulls the top 3 featured safaris efficiently."""
+    tours = Tour.objects.all().only('id', 'title', 'image', 'price', 'location', 'duration')[:3]
     return render(request, 'core/home.html', {'tours': tours})
 
-# 2. Exploration Deck (All Safaris Directory) 👈 RESTORED THIS FUNCTION
 def tours_list(request):
+    """Exploration Deck - Displays the entire safari package directory."""
     tours = Tour.objects.all()
     return render(request, 'core/tours_list.html', {'tours': tours})
 
-# 3. Tour Detail view (e.g., /safaris/1/)
-def tour_detail(request, pk):
-    tour = get_object_or_404(Tour, pk=pk)
+def tour_detail(request, tour_id):
+    """Tour Detail View - Displays a deep-dive route manifest for a specific package."""
+    tour = get_object_or_404(Tour, id=tour_id)
     return render(request, 'core/tour_detail.html', {'tour': tour})
 
-# 4. About Workspace View
 def about(request):
+    """About Workspace View."""
     return render(request, 'core/about.html')
 
-# 5. Operational Reservation Desk / Contact Form
 def contact(request):
-    tours = Tour.objects.all()
+    """Operational Reservation Desk - Handles dynamic custom safari bookings and inquiries."""
+    tours = Tour.objects.all().only('title')
     
     if request.method == 'POST':
         form = InquiryForm(request.POST)
         if form.is_valid():
             inquiry = form.save()
             
-            # Formatted email log dump for console execution
+            # Formatted email log template for operational dispatch
             email_subject = f"🚨 NEW EXPEDITION MANIFEST: {inquiry.name} - {inquiry.tour_selection or 'Custom Route'}"
             email_body = f"""
 ==================================================
@@ -42,7 +41,7 @@ def contact(request):
 • Lead Client: {inquiry.name}
 • Email Address: {inquiry.email}
 • Mobile Line: {inquiry.phone or 'Not Provided'}
-• Target Target: {inquiry.tour_selection or 'Custom Tailored Profile'}
+• Target Safari: {inquiry.tour_selection or 'Custom Tailored Profile'}
 • Transit Start: {inquiry.start_date or 'Flexible Schedule'}
 • Group Count: {inquiry.group_size} Traveler(s)
 

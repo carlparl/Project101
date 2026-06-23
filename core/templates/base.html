@@ -1,126 +1,81 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Shafnet Tours & Travel{% endblock %}</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    
     <style>
         :root {
             --brand-green: #2b7a4b;
-            --brand-dark: #0f172a;
-            --brand-light: #f8fafc;
+            --dark-slate: #0f172a;
         }
-
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            color: var(--brand-dark);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--dark-slate);
             background-color: #ffffff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
-
         main {
             flex: 1 0 auto;
         }
-
-        /* Premium Floating Toast Notification Wrapper */
-        .notification-toast-wrapper {
-            position: fixed;
-            top: 4.5rem;
-            right: 1.5rem;
-            z-index: 1060;
-            max-width: 400px;
-        }
-
-        .navbar-brand {
-            font-size: 1.15rem;
-        }
-        
-        .navbar-brand img {
-            object-fit: contain;
-        }
-
-        /* Supporting Footer Legibility Tokens */
-        .footer-text-glow {
-            color: rgba(255, 255, 255, 0.7) !important;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-        }
-
-        .footer-link {
-            color: rgba(255, 255, 255, 0.75) !important;
-            font-weight: 500;
-            transition: color 0.2s ease-in-out;
-        }
-
-        .footer-link:hover {
-            color: var(--brand-green, #2b7a4b) !important;
+        .navbar-brand fw-bold {
+            color: var(--brand-green);
         }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top py-2">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-uppercase tracking-wider" href="{% url 'home' %}" style="color: var(--brand-green);">
-                <img src="{% static 'images/image_040a6c.png' %}" alt="Shafnet Tours Logo" height="70" class="d-inline-block">
-                <span>Shafnet Tours</span>
-            </a>
-            <button class="navbar-toggler border-0 bg-transparent shadow-none d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainApplicationNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainApplicationNavbar">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-medium small gap-2 align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Our Profile</a></li>
-                    <li class="nav-item">
-                        <a class="btn text-white px-3 py-1.5 btn-sm ms-lg-2" href="{% url 'contact' %}" style="background-color: var(--brand-green); border-radius: 6px;">
-                            Plan Custom Trip
-                        </a>
-                    </td>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-white bg-white border-bottom fixed-top shadow-sm py-2">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-dark d-flex align-items-center gap-2" href="{% url 'home' %}">
+                    <i class="bi bi-compass-fill" style="color: var(--brand-green);"></i>
+                    <span>SHAFNET TOURS</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigationMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavigationMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'tours' %}">Safaris</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    {% if messages %}
-    <div class="notification-toast-wrapper">
-        {% for message in messages %}
-        <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'warning' %}warning{% else %}success{% endif %} alert-dismissible fade show shadow-sm border-0" role="alert">
-            <div class="d-flex align-items-center gap-2">
-                {% if message.tags == 'error' %}
-                    <i class="bi bi-exclamation-octagon-fill fs-5"></i>
-                {% else %}
-                    <i class="bi bi-check-circle-fill fs-5"></i>
-                {% endif %}
-                <div>{{ message }}</div>
-            </div>
-            <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
+    <div class="container" style="margin-top: 5.5rem; margin-bottom: -4.5rem; position: relative; z-index: 1050;">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert" style="background-color: rgba(43, 122, 75, 0.1); color: var(--brand-green);">
+                    <i class="bi bi-shield-check-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
-    {% endif %}
 
-    <main style="margin-top: 4.5rem;">
-        {% block content %}
-        {% endblock %}
+    <main>
+        {% block content %}{% endblock %}
     </main>
 
-    <footer class="py-4 border-top border-secondary-subtle mt-auto" style="background-color: #0f172a;">
+    <footer class="bg-dark text-white py-4 mt-auto border-top border-secondary">
         <div class="container text-center text-md-start">
-            <div class="row align-items-center">
-                <div class="col-md-6 mb-2 mb-md-0 small footer-text-glow">
-                    &copy; 2026 Shafnet Tours & Travel. All tracks and logistics routes protected.
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-uppercase tracking-wider mb-2" style="font-size: 0.85rem;">Shafnet Tours & Travel</h6>
+                    <p class="text-white-50 small mb-0">Premium tailored exploration networks across East Africa. Satellite active coordinates tracked.</p>
                 </div>
-                <div class="col-md-6 text-md-end small">
-                    <a href="{% url 'contact' %}" class="footer-link text-decoration-none">Contact Operations Desk</a>
+                <div class="col-md-6 text-md-end d-flex flex-column justify-content-center">
+                    <p class="text-white-50 small mb-0">&copy; 2026 Shafnet Tours. All tracking operational domains reserved.</p>
                 </div>
             </div>
         </div>

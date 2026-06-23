@@ -128,7 +128,7 @@
                 <p class="lead mb-4 fs-5">Immerse yourself completely in nature. Experience professional, safely managed custom itineraries and wilderness tours.</p>
                 
                 <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
-                    <a href="#featured-tours" class="btn btn-brand px-4 py-2.5 text-decoration-none">
+                    <a href="{% url 'tours' %}" class="btn btn-brand px-4 py-2.5 text-decoration-none">
                         Explore Packages
                     </a>
                     <a href="{% url 'contact' %}" class="btn btn-outline-light px-4 py-2.5 fw-semibold text-decoration-none" style="border-radius: 6px; text-shadow: 0 1px 4px rgba(0,0,0,0.45);">
@@ -158,7 +158,7 @@
                             {% if tour.image %}
                                 <img src="{{ tour.image.url }}" alt="{{ tour.title }}" loading="lazy">
                             {% else %}
-                                <img src="{% static 'images/image_040a6c.png' %}" alt="Placeholder" style="object-fit: contain; padding: 2rem; opacity: 0.3;">
+                                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=600&q=80" alt="Placeholder" style="object-fit: cover;">
                             {% endif %}
                             
                             {% if tour.price %}

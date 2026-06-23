@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ tour.title }} | Shafnet Tours & Travel{% endblock %}
+{% block title %}Explore {{ tour.title }} | Shafnet Tours & Travel{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -13,7 +13,7 @@
             rgba(15, 23, 42, 0.75) 0%,
             rgba(15, 23, 42, 0.50) 100%
         ),
-        url('{% if tour.image %}{{ tour.image.url }}{% else %}{% static "images/safari_bg.jpg" %}{% endif %}') no-repeat center center / cover;
+        url('{% if tour.image %}{{ tour.image.url }}{% else %}https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80{% endif %}') no-repeat center center / cover;
         padding-top: 6rem;
     }
 
@@ -133,7 +133,6 @@
                 <h3 class="fw-bold text-dark mb-4">Planned Route Schedule</h3>
                 <div class="itinerary-timeline">
                     
-                    <!-- Core Sample Loop Block (Replace static days with a dynamic child model loop if available) -->
                     <div class="timeline-node">
                         <h5 class="fw-bold text-dark mb-1">Day 1: Arrival & Ecosystem Insertion</h5>
                         <p class="text-muted small mb-0">Arrive at primary logistics terminal. Clear track parameters with operations guide before heading out to your initial wilderness base setup.</p>
@@ -162,7 +161,6 @@
                 <!-- Local Intercept Reservation Form -->
                 <form method="POST" action="{% url 'contact' %}" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    <!-- Pre-selects current package title implicitly inside validation workflow -->
                     <input type="hidden" name="tour_selection" value="{{ tour.title }}">
 
                     <div class="d-flex flex-column gap-3">
@@ -179,17 +177,17 @@
                         <div class="row g-2">
                             <div class="col-6">
                                 <label class="form-label small fw-semibold text-dark">Start Date</label>
-                                <input type="date" name="start_date" class="form-control-premium">
+                                <input type="date" name="start_date" class="form-control-premium" required>
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-semibold text-dark">Group Size</label>
-                                <input type="number" name="group_size" class="form-control-premium" min="1" max="50" value="1">
+                                <input type="number" name="group_size" class="form-control-premium" min="1" max="50" value="1" required>
                             </div>
                         </div>
 
                         <div>
                             <label class="form-label small fw-semibold text-dark">Operational Special Requests</label>
-                            <textarea name="message" class="form-control-premium" rows="3" placeholder="Specify logistical requests, gear spaces, or dietary constraints..."></textarea>
+                            <textarea name="message" class="form-control-premium" rows="3" placeholder="Specify logistical requests, gear spaces, or dietary constraints..." required></textarea>
                         </div>
 
                         <button type="submit" class="btn text-white w-100 py-2 fw-medium mt-2" style="background-color: var(--brand-green); border-radius: 6px; font-size: 0.95rem;">

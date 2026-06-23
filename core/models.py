@@ -8,10 +8,10 @@ class Tour(models.Model):
     duration_days = models.PositiveIntegerField(default=1, help_text="Duration of the safari in days")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="Cost in USD or UGX")
     short_description = models.TextField(max_length=300, default="")
-    detailed_itinerary = models.TextField(default="")  # ✅ Safe default added here
+    detailed_itinerary = models.TextField(default="")
     image = models.ImageField(upload_to='tours/', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True) # ✅ Handled cleanly now
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -20,6 +20,21 @@ class Tour(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def location(self):
+        """Fallback property mapping to destination for templates using tour.location."""
+        return self.destination
+
+    @property
+    def duration(self):
+        """Fallback property mapping to duration_days for templates using tour.duration."""
+        return f"{self.duration_days} Days"
+
+    @property
+    def description(self):
+        """Fallback property mapping to detailed_itinerary or short_description for templates using tour.description."""
+        return self.detailed_itinerary or self.short_description
 
 
 class BookingRequest(models.Model):
@@ -67,10 +82,6 @@ class Testimonial(models.Model):
 
 
 class ContactMessage(models.Model):
-    """
-    Captures all premium inputs from the itinerary form, 
-    making sure no client submission data is dropped.
-    """
     name = models.CharField(max_length=200)
     email = models.EmailField()
     phone = models.CharField(max_length=50, blank=True, null=True)
@@ -85,16 +96,16 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - Itinerary Inquiry"
-    # Add this at the bottom of core/models.py
+
 
 class Inquiry(models.Model):
     name = models.CharField(max_length=150)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True, null=True)
-    tour_selection = models.CharField(max_length=250, blank=True, null=True) # Matches template dropdown
-    start_date = models.DateField(blank=True, null=True)                      # Tracks target date
-    group_size = models.PositiveIntegerField(default=1)                       # Numeric group matrix
-    message = models.TextField()                                              # Custom requirements text
+    tour_selection = models.CharField(max_length=250, blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    group_size = models.PositiveIntegerField(default=1)
+    message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

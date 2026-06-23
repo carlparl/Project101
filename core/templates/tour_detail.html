@@ -1,198 +1,197 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ tour.title }} | Shafnet Tours & Travel{% endblock %}
+{% block title %}{{ tour.title }} - Route Manifest | Shafnet Tours{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* --- Premium Page Header with Contrast Overlay --- */
-    .detail-hero-wrapper {
-        min-height: 45vh;
-        background: linear-gradient(
-            180deg,
-            rgba(15, 23, 42, 0.75) 0%,
-            rgba(15, 23, 42, 0.50) 100%
-        ),
-        url('{% if tour.image %}{{ tour.image.url }}{% else %}{% static "images/safari_bg.jpg" %}{% endif %}') no-repeat center center / cover;
-        padding-top: 6rem;
-    }
-
-    .detail-hero-heading {
-        font-size: clamp(2rem, 5vw, 3rem);
-        letter-spacing: -0.02em;
-        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-
-    .meta-pill {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+    .detail-hero-frame {
+        min-height: 40vh;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%),
+                    url('{% if tour.image %}{{ tour.image.url }}{% else %}https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=85{% endif %}') no-repeat center center / cover;
         color: #ffffff;
+    }
+
+    .pill-indicator {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
         font-size: 0.85rem;
         font-weight: 500;
-        padding: 0.4rem 1rem;
-        border-radius: 30px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    /* --- Sticky Dynamic Booking Sidebar --- */
-    .sticky-sidebar-card {
+    .sticky-booking-module {
         position: sticky;
         top: 6.5rem;
-        background-color: #ffffff;
+        background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
     }
 
-    .form-control-premium {
+    /* --- High-Speed Interactive Form Infrastructure --- */
+    .premium-input {
         background-color: #f8fafc;
         border: 1px solid #e2e8f0;
         border-radius: 6px;
         padding: 0.65rem 0.85rem;
         font-size: 0.9rem;
         color: #0f172a;
-        transition: all 0.25s ease;
-        display: block;
         width: 100%;
+        display: block;
+        transition: all 0.2s ease;
     }
-
-    .form-control-premium:focus {
+    .premium-input:focus {
         background-color: #ffffff;
         border-color: var(--brand-green);
-        box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
+        box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.12);
         outline: none;
     }
 
-    /* --- Itinerary Component Timeline --- */
-    .itinerary-timeline {
+    /* --- Visual Route Itinerary Steps --- */
+    .route-timeline {
         position: relative;
         padding-left: 2rem;
     }
-
-    .itinerary-timeline::before {
+    .route-timeline::before {
         content: '';
         position: absolute;
-        left: 7px;
-        top: 10px;
-        bottom: 10px;
+        left: 8px; top: 8px; bottom: 8px;
         width: 2px;
         background-color: #e2e8f0;
     }
 
-    .timeline-node {
+    .route-step {
         position: relative;
         padding-bottom: 2rem;
     }
-
-    .timeline-node::before {
+    .route-step::before {
         content: '';
         position: absolute;
-        left: -2rem;
-        top: 4px;
-        width: 16px;
-        height: 16px;
+        left: -2rem; top: 6px;
+        width: 18px; height: 18px;
         border-radius: 50%;
         background-color: #ffffff;
-        border: 3px solid var(--brand-green);
+        border: 4px solid var(--brand-green);
         z-index: 2;
     }
 </style>
 {% endblock %}
 
-{% block content %}
-<!-- Master Header Frame -->
-<div class="detail-hero-wrapper d-flex align-items-center text-white mb-5">
-    <div class="container py-4">
+block content %}
+<div class="detail-hero-frame d-flex align-items-center py-5">
+    <div class="container">
         <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="meta-pill"><i class="bi bi-geo-alt-fill me-1"></i>{{ tour.location|default:"East Africa" }}</span>
-            <span class="meta-pill"><i class="bi bi-clock-fill me-1"></i>{{ tour.duration|default:"Custom Horizon" }}</span>
+            <span class="pill-indicator"><i class="bi bi-geo-alt-fill me-1"></i>{{ tour.location|default:"Uganda Reserve" }}</span>
+            <span class="pill-indicator"><i class="bi bi-clock-fill me-1"></i>{{ tour.duration|default:"Custom Manifest" }}</span>
             {% if tour.price %}
-                <span class="meta-pill"><i class="bi bi-tag-fill me-1"></i>From ${{ tour.price }}</span>
+                <span class="pill-indicator" style="background-color: var(--brand-green); border-color: var(--brand-green);">From ${{ tour.price }}</span>
             {% endif %}
         </div>
-        <h1 class="fw-bold detail-hero-heading m-0">{{ tour.title }}</h1>
+        <h1 class="display-5 fw-bold tracking-tight m-0" style="text-shadow: 0 2px 10px rgba(0,0,0,0.35);">{{ tour.title }}</h1>
     </div>
 </div>
 
-<!-- Main Architecture Layout Grid -->
-<div class="container mb-5">
+<div class="container my-5 py-3">
     <div class="row g-5">
         
-        <!-- Left Column: Detailed Overview & Track Itinerary -->
+        <!-- Left: Expedition Logistics & Manifest Details -->
         <div class="col-lg-7 col-xl-8">
             <div class="mb-5">
                 <h3 class="fw-bold text-dark mb-3">Expedition Overview</h3>
-                <p class="text-muted lh-lg">{{ tour.description }}</p>
+                <p class="text-muted lh-lg fs-6">{{ tour.description|default:"Join Shafnet Tours for a comprehensively secured, meticulously routed journey mapping Uganda's most iconic wildlife territories." }}</p>
             </div>
 
             <hr class="border-light-subtle my-5">
 
-            <!-- Itinerary Timeline Section -->
+            <!-- Comprehensive Route Itinerary Timeline mapping back to generated tracks -->
             <div>
                 <h3 class="fw-bold text-dark mb-4">Planned Route Schedule</h3>
-                <div class="itinerary-timeline">
-                    
-                    <!-- Core Sample Loop Block (Replace static days with a dynamic child model loop if available) -->
-                    <div class="timeline-node">
-                        <h5 class="fw-bold text-dark mb-1">Day 1: Arrival & Ecosystem Insertion</h5>
-                        <p class="text-muted small mb-0">Arrive at primary logistics terminal. Clear track parameters with operations guide before heading out to your initial wilderness base setup.</p>
-                    </div>
-
-                    <div class="timeline-node">
-                        <h5 class="fw-bold text-dark mb-1">Day 2: Intensive Core Field Exploration</h5>
-                        <p class="text-muted small mb-0">Early sunrise transit tracking. Deep exploration deployment across key territory sectors accompanied by certified tracking staff.</p>
-                    </div>
-
-                    <div class="timeline-node mb-0 pb-0">
-                        <h5 class="fw-bold text-dark mb-1">Day 3: Route Outbound Demobilization</h5>
-                        <p class="text-muted small mb-0">Mid-morning closing exploration run. Complete path documentation processing and mid-afternoon return transit configuration back to transit hubs.</p>
-                    </div>
-
+                <div class="route-timeline">
+                    {% if 'gorilla' in tour.title|lower %}
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 1: Scenic Transit to Bwindi Ecosystem</h5>
+                            <p class="text-muted small mb-0">Depart Entebbe/Kampala with your designated guide. Traverse across equatorial markers with brief logistic staging indicators in Mbarara prior to Bwindi forest boundary access.</p>
+                        </div>
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 2: Gorilla Tracking Operations Deployment</h5>
+                            <p class="text-muted small mb-0">Early morning processing at habitat management outpost. Deploy alongside rangers tracking mountain gorilla positions. Allocate 60 minutes for close habitat mapping and safe field viewing.</p>
+                        </div>
+                        <div class="route-step mb-0 pb-0">
+                            <h5 class="fw-bold text-dark mb-1">Day 3: Mid-Morning Check-out & Return Transit</h5>
+                            <p class="text-muted small mb-0">Deconstruct field camp parameters, process outbound documentation clearance loops, and initiate return highway path logistics to Kampala.</p>
+                        </div>
+                    {% elif 'murchison' in tour.title|lower %}
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 1: White Rhino Sanctuary Tracking Outpost</h5>
+                            <p class="text-muted small mb-0">Logistics run north with a planned detour at Ziwa Sanctuary to execute safety tracking runs for white rhinos. Proceed to cross into Murchison northern sector lines.</p>
+                        </div>
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 2: Nile Delta Safari Run & Launch Cruise</h5>
+                            <p class="text-muted small mb-0">Early sunrise game tracking arrays targeting lions, leopards, and giraffes. Afternoon river vessel dispatch to the base of the world's most powerful water chasm.</p>
+                        </div>
+                        <div class="route-step mb-0 pb-0">
+                            <h5 class="fw-bold text-dark mb-1">Day 3: Top of Falls Observation & Return Loop</h5>
+                            <p class="text-muted small mb-0">Execute a morning trek up the rocky cliff perimeter to observe the Nile forcing array down a 7-meter throat, followed by an afternoon return route to Kampala.</p>
+                        </div>
+                    {% else %}
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 1: Primary Transit & Ecosystem Insertion</h5>
+                            <p class="text-muted small mb-0">Arrive at primary logistics terminal. Clear track parameters with your operations guide before heading out to your initial wilderness base setup.</p>
+                        </div>
+                        <div class="route-step">
+                            <h5 class="fw-bold text-dark mb-1">Day 2: Intensive Core Field Exploration</h5>
+                            <p class="text-muted small mb-0">Early sunrise tracking. Deep exploration deployment across key territory sectors accompanied by certified tracking staff.</p>
+                        </div>
+                        <div class="route-step mb-0 pb-0">
+                            <h5 class="fw-bold text-dark mb-1">Day 3: Route Outbound Demobilization</h5>
+                            <p class="text-muted small mb-0">Mid-morning closing exploration run. Complete path documentation processing and return transit configuration back to transit hubs.</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
-        <!-- Right Column: Interactive Sidebar Booking Module -->
+        <!-- Right: Interactive Dynamic Sidebar Form -->
         <div class="col-lg-5 col-xl-4">
-            <div class="sticky-sidebar-card p-4">
+            <div class="sticky-booking-module p-4">
                 <h5 class="fw-bold text-dark mb-1">Reserve This Safari</h5>
                 <p class="text-muted small mb-4">Secure your slot parameters or modify tracking routes immediately.</p>
 
-                <!-- Local Intercept Reservation Form -->
                 <form method="POST" action="{% url 'contact' %}" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    <!-- Pre-selects current package title implicitly inside validation workflow -->
                     <input type="hidden" name="tour_selection" value="{{ tour.title }}">
 
                     <div class="d-flex flex-column gap-3">
                         <div>
                             <label class="form-label small fw-semibold text-dark">Full Name</label>
-                            <input type="text" name="name" class="form-control-premium" placeholder="John Doe" required>
+                            <input type="text" name="name" class="premium-input" placeholder="John Doe" required>
                         </div>
 
                         <div>
                             <label class="form-label small fw-semibold text-dark">Email Address</label>
-                            <input type="email" name="email" class="form-control-premium" placeholder="johndoe@example.com" required>
+                            <input type="email" name="email" class="premium-input" placeholder="johndoe@example.com" required>
                         </div>
 
                         <div class="row g-2">
                             <div class="col-6">
                                 <label class="form-label small fw-semibold text-dark">Start Date</label>
-                                <input type="date" name="start_date" class="form-control-premium">
+                                <input type="date" name="start_date" class="premium-input" required>
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-semibold text-dark">Group Size</label>
-                                <input type="number" name="group_size" class="form-control-premium" min="1" max="50" value="1">
+                                <input type="number" name="group_size" class="premium-input" min="1" max="30" value="1" required>
                             </div>
                         </div>
 
                         <div>
-                            <label class="form-label small fw-semibold text-dark">Operational Special Requests</label>
-                            <textarea name="message" class="form-control-premium" rows="3" placeholder="Specify logistical requests, gear spaces, or dietary constraints..."></textarea>
+                            <label class="form-label small fw-semibold text-dark">Logistical Constraints / Special Needs</label>
+                            <textarea name="message" class="premium-input" rows="3" placeholder="Specify camera gear space requirements, dietary tracking constraints, or vehicle options..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn text-white w-100 py-2 fw-medium mt-2" style="background-color: var(--brand-green); border-radius: 6px; font-size: 0.95rem;">
+                        <button type="submit" class="btn text-white w-100 py-2 fw-medium mt-2 interactive-element" style="background-color: var(--brand-green); border-radius: 6px;">
                             Initialize Booking Request
                         </button>
                     </div>
@@ -207,7 +206,6 @@
     </div>
 </div>
 
-<!-- Form Validation Runner -->
 <script>
     (() => {
       'use strict'
