@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_400
+from django.shortcuts import render, redirect, get_object_or_404
+
 from django.contrib import messages
 from django.core.mail import send_mail 
 from .models import Tour, Inquiry
@@ -16,7 +17,7 @@ def tours_list(request):
 
 # 3. Tour Detail view (e.g., /safaris/1/)
 def tour_detail(request, pk):
-    tour = get_object_or_400(Tour, pk=pk)
+    tour = get_object_or_404(Tour, pk=pk)
     return render(request, 'core/tour_detail.html', {'tour': tour})
 
 # 4. About Workspace View
