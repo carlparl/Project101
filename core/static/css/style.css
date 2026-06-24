@@ -3,10 +3,11 @@
    ========================================================================== */
 
 :root {
-    --brand-green: #2b7a4b;        /* Core Deep Ugandan Safari Green */
-    --brand-green-hover: #1f5c37;  /* Deep hover state */
-    --brand-green-light: #f0f7f4;  /* Premium soft sage/mint tint background */
-    --brand-green-dark: #163f26;   /* Rich typographic contrast green */
+    --brand-green: #2D6A4F;
+    --brand-green-hover: #1B4332;
+    --brand-green-light: #F8F6F0;
+    --brand-green-dark: #081C15;
+    --brand-gold: #C49A45;
     --text-slate: #475569;
 }
 
@@ -91,19 +92,17 @@ img {
    ========================================================================== */
 
 /* Automatically maps standard green/primary actions to signature theme color */
-.btn-success, .btn-primary {
-    background-color: var(--brand-green) !important;
-    border-color: var(--brand-green) !important;
-    color: #ffffff !important;
-    font-weight: 600;
-    transition: all 0.25s ease-in-out;
+.btn-success,
+.btn-primary {
+    background-color: var(--brand-gold) !important;
+    border-color: var(--brand-gold) !important;
+    color: white !important;
 }
 
-.btn-success:hover, .btn-primary:hover,
-.btn-success:focus, .btn-primary:focus {
-    background-color: var(--brand-green-hover) !important;
-    border-color: var(--brand-green-hover) !important;
-    box-shadow: 0 0 0 4px rgba(43, 122, 75, 0.15) !important;
+.btn-success:hover,
+.btn-primary:hover {
+    background-color: #A88135 !important;
+    border-color: #A88135 !important;
 }
 
 /* Secondary Outline Button Variations */
@@ -125,8 +124,8 @@ img {
 
 /* Custom Dynamic Badge/Sub-headings */
 .brand-badge {
-    background-color: var(--brand-green-light);
-    color: var(--brand-green-dark);
+    background-color: rgba(196,154,69,0.12);
+    color: var(--brand-gold);
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -134,10 +133,68 @@ img {
     padding: 0.4rem 1rem;
     border-radius: 50px;
     display: inline-block;
+    border: 1px solid rgba(196,154,69,0.25);
 }
 
 /* Theme Cards & Content Interstitials */
 .green-card-tint {
     background-color: var(--brand-green-light);
     border: 1px solid rgba(43, 122, 75, 0.12);
+}
+.contact-page-wrapper {
+    padding: 4rem 0 5rem;
+    background: #f8fafc;
+}
+
+.premium-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+}
+
+.form-control,
+.form-select,
+input,
+select,
+textarea {
+    width: 100%;
+    border-radius: 10px;
+    min-height: 48px;
+    border: 1px solid #d1d5db;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--brand-gold);
+    box-shadow: 0 0 0 0.2rem rgba(196,154,69,.15);
+    outline: none;
+}
+
+.premium-card .row.g-4 {
+    row-gap: .5rem;
+}
+
+.safari-btn {
+    background: var(--brand-gold);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all .3s ease;
+}
+
+.safari-btn:hover {
+    background: #A88135;
+    color: white;
+    transform: translateY(-2px);
 }

@@ -1,120 +1,176 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Request a Custom Itinerary | Shafnet Tours & Travel{% endblock %}
+{% block title %}Plan Your Safari | Shafnet Tours & Travel{% endblock %}
 
 {% block extra_css %}
+{% block extra_css %}
 <style>
-    /* Prevent sticky navbar from overlapping form headers */
-    .contact-page-wrapper {
-        padding: 3rem 0 5rem 0;
-        background-color: #f8fafc;
+    :root{
+        --brand-green:#1B4332;
+        --brand-green-dark:#081C15;
+        --brand-green-light:#D8F3DC;
+        --brand-gold:#C49A45;
     }
 
-    /* Premium Form Card Layout */
-    .premium-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        padding: 3rem 2.5rem;
-        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
+    .contact-page-wrapper{
+        padding:4rem 0 5rem;
+        background:#f8fafc;
     }
 
-    /* Style Definitions for custom widgets passed from forms.py */
-    .premium-input {
-        display: block;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #0f172a;
-        background-color: #ffffff;
-        background-clip: padding-box;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    .premium-card{
+        background:#fff;
+        border:1px solid #e2e8f0;
+        border-radius:18px;
+        padding:3rem;
+        box-shadow:0 20px 40px rgba(15,23,42,.05);
     }
 
-    .premium-input:focus {
-        color: #0f172a;
-        background-color: #ffffff;
-        border-color: #2b7a4b; /* Deep Brand Green */
-        outline: 0;
-        box-shadow: 0 0 0 4px rgba(43, 122, 75, 0.12);
+    .contact-title{
+        font-size:clamp(2rem,4vw,3rem);
+        font-weight:800;
+        line-height:1.15;
+        color:var(--brand-green-dark);
     }
 
-    .premium-input[readonly] {
-        background-color: #f1f5f9;
-        color: #64748b;
-        cursor: not-allowed;
+    .info-item{
+        display:flex;
+        gap:1rem;
+        margin-bottom:1.75rem;
     }
 
-    /* Typography & Visual Details */
-    .brand-accent-text {
-        color: #2b7a4b;
-        font-size: 0.825rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        display: block;
-        margin-bottom: 0.75rem;
+    .info-icon{
+        width:48px;
+        height:48px;
+        background:var(--brand-green-light);
+        color:var(--brand-green);
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:1.1rem;
+        flex-shrink:0;
     }
 
-    .info-item {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.75rem;
+    /* FORM STYLING */
+
+    .form-control,
+    .form-select{
+        width:100%;
+        min-height:50px;
+        border:1px solid #d1d5db;
+        border-radius:10px;
+        padding:.75rem 1rem;
+        transition:.25s ease;
     }
 
-    .info-icon {
-        width: 40px;
-        height: 40px;
-        background: rgba(43, 122, 75, 0.1);
-        color: #2b7a4b;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        flex-shrink: 0;
+    textarea.form-control{
+        min-height:150px;
+        resize:vertical;
+    }
+
+    .form-control:focus,
+    .form-select:focus{
+        border-color:var(--brand-gold);
+        box-shadow:0 0 0 .2rem rgba(196,154,69,.15);
+    }
+
+    .form-label{
+        font-weight:600;
+        margin-bottom:.5rem;
+        color:#0f172a;
+    }
+
+    .row.g-3 > div{
+        margin-bottom:.5rem;
+    }
+
+    /* BUTTON */
+
+    .safari-btn{
+        background:var(--brand-gold);
+        border:none;
+        color:white;
+        font-weight:700;
+        border-radius:10px;
+        transition:.3s ease;
+    }
+
+    .safari-btn:hover{
+        background:#A88135;
+        color:white;
+        transform:translateY(-2px);
+    }
+
+    /* MOBILE */
+
+    @media (max-width:768px){
+
+        .premium-card{
+            padding:2rem;
+        }
+
+        .contact-title{
+            font-size:2rem;
+        }
+
+        .info-item{
+            margin-bottom:1.25rem;
+        }
     }
 </style>
 {% endblock %}
 
+
+
 {% block content %}
 <div class="contact-page-wrapper">
     <div class="container">
-        
+
         {% if messages %}
-            <div class="row justify-content-center mb-4">
-                <div class="col-lg-11">
-                    {% for message in messages %}
-                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 py-3" role="alert">
-                            <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-11">
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
+                {% endfor %}
             </div>
+        </div>
         {% endif %}
 
-        <div class="row g-5 justify-content-center">
-            
-            <div class="col-lg-5 col-xl-4 d-flex flex-column justify-content-center">
-                <span class="brand-accent-text">Expedition Manifest</span>
-                <h1 class="fw-bold text-dark mb-4" style="font-size: 2.5rem; letter-spacing: -0.02em;">Ready to Plan Your Journey?</h1>
-                <p class="text-muted mb-5">
-                    Submit your parameters using our logistics desk. Our localized tracking specialists analyze incoming itineraries matching precise routing scale, physical pace constraints, and equipment configurations.
+        <div class="row g-5 align-items-start">
+
+            <!-- Contact Information -->
+            <div class="col-lg-5">
+
+                <span class="brand-badge mb-3">
+                    Let's Plan Your Adventure
+                </span>
+
+                <h1 class="contact-title mb-3">
+                    Ready for Your Next Safari?
+                </h1>
+
+                <p class="text-muted mb-4">
+                    Tell us about your dream journey and our travel specialists
+                    will design a personalized itinerary tailored to your interests,
+                    travel dates, budget, and preferred experiences.
                 </p>
+
+                <hr class="my-4">
 
                 <div class="info-item">
                     <div class="info-icon">
-                        <i class="bi bi-envelope-open-fill"></i>
+                        <i class="bi bi-envelope-fill"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold text-dark mb-0">Operations Dispatch</h6>
-                        <small class="text-muted">operations@shafnettours.com</small>
+                        <h6 class="fw-bold mb-1">Email Us</h6>
+                        <small class="text-muted">
+                            shafnettours@gmail.com
+                        </small>
                     </div>
                 </div>
 
@@ -123,8 +179,12 @@
                         <i class="bi bi-telephone-fill"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold text-dark mb-0">24/7 Field Support Line</h6>
-                        <small class="text-muted">+256 700 000000</small>
+                        <h6 class="fw-bold mb-1">Call Us</h6>
+                        <div class="text-muted small">
+                            +256 757 226 513<br>
+                            +256 789 472 229<br>
+                            +256 703 410 919
+                        </div>
                     </div>
                 </div>
 
@@ -133,88 +193,139 @@
                         <i class="bi bi-geo-alt-fill"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold text-dark mb-0">Kampala Ground Station</h6>
-                        <small class="text-muted">Plot 4, Kampala Road, Uganda</small>
+                        <h6 class="fw-bold mb-1">Visit Our Office</h6>
+                        <small class="text-muted">
+                            Kampala, Uganda
+                        </small>
                     </div>
                 </div>
+
             </div>
 
-            <div class="col-lg-7 col-xl-7">
+            <!-- Form -->
+            <div class="col-lg-7">
+
                 <div class="premium-card">
-                    <h3 class="fw-bold text-dark mb-2" style="letter-spacing: -0.01em;">Configure Blueprint</h3>
-                    <p class="text-muted small mb-4">All data profiles securely route through protected administrative nodes.</p>
-                    
-                    <form method="POST" class="needs-validation" novalidate>
+
+                    <h3 class="fw-bold mb-2">
+                        Request a Custom Itinerary
+                    </h3>
+
+                    <p class="text-muted mb-4">
+                        Complete the form below and we'll get back to you with a personalized safari proposal.
+                    </p>
+
+                    <form method="POST">
                         {% csrf_token %}
-                        
-                        <div class="row g-3">
+
+                        <div class="row g-4">
+
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Full Name</label>
+                                <label class="form-label fw-semibold">
+                                    Full Name
+                                </label>
                                 {{ form.name }}
                                 {% if form.name.errors %}
-                                    <div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.name.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Email Address</label>
+                                <label class="form-label fw-semibold">
+                                    Email Address
+                                </label>
                                 {{ form.email }}
                                 {% if form.email.errors %}
-                                    <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.email.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Phone Number</label>
+                                <label class="form-label fw-semibold">
+                                    Phone Number
+                                </label>
                                 {{ form.phone }}
                                 {% if form.phone.errors %}
-                                    <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.phone.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Selected Package</label>
+                                <label class="form-label fw-semibold">
+                                    Preferred Package
+                                </label>
                                 {{ form.tour_selection }}
                                 {% if form.tour_selection.errors %}
-                                    <div class="text-danger small mt-1">{{ form.tour_selection.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.tour_selection.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Target Departure Date</label>
+                                <label class="form-label fw-semibold">
+                                    Departure Date
+                                </label>
                                 {{ form.start_date }}
                                 {% if form.start_date.errors %}
-                                    <div class="text-danger small mt-1">{{ form.start_date.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.start_date.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold text-secondary">Group Scale (Travelers)</label>
+                                <label class="form-label fw-semibold">
+                                    Number of Travelers
+                                </label>
                                 {{ form.group_size }}
                                 {% if form.group_size.errors %}
-                                    <div class="text-danger small mt-1">{{ form.group_size.errors.0 }}</div>
+                                <div class="text-danger small mt-1">
+                                    {{ form.group_size.errors.0 }}
+                                </div>
                                 {% endif %}
                             </div>
 
-                            <div class="col-12">
-                                <label class="form-label small fw-semibold text-secondary">Expedition Notes & Custom Adjustments</label>
-                                {{ form.message }}
-                                {% if form.message.errors %}
-                                    <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
-                                {% endif %}
-                            </div>
+                          <div class="col-12">
+    <label for="{{ form.message.id_for_label }}"
+           class="form-label">
+        Additional Information
+    </label>
+
+    {{ form.message }}
+
+    {% if form.message.errors %}
+    <div class="text-danger small mt-1">
+        {{ form.message.errors.0 }}
+    </div>
+    {% endif %}
+</div>  
+    {% endif %}
+
+        </div>
 
                             <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold" style="background-color: #2b7a4b; border-color: #2b7a4b; border-radius: 8px;">
-                                    Transmit Manifest Details
+                                <button type="submit"
+                                        class="btn safari-btn w-100 py-3">
+                                    Request My Custom Safari
                                 </button>
                             </div>
+
                         </div>
                     </form>
+
                 </div>
+
             </div>
 
         </div>
+
     </div>
 </div>
 {% endblock %}

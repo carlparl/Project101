@@ -2,187 +2,317 @@
 {% load static %}
 {% load cache %}
 
-{% block title %}Feel Your Life With Adventure | Shafnet Tours{% endblock %}
+{% block title %}Discover Uganda's Wild Beauty | Shafnet Tours{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* --- Readability-First Hero Architecture --- */
+    /* ==========================================
+       LUXURY SAFARI HERO
+    ========================================== */
     .hero-safari {
         position: relative;
-        background: linear-gradient(
-            90deg, 
-            rgba(15, 23, 42, 0.85) 0%, 
-            rgba(15, 23, 42, 0.65) 50%, 
-            rgba(15, 23, 42, 0.35) 100%
-        ), 
-        url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80');
+        background:
+            linear-gradient(
+                120deg,
+                rgba(8, 28, 21, 0.90) 0%,
+                rgba(27, 67, 50, 0.75) 45%,
+                rgba(0, 0, 0, 0.35) 100%
+            ),
+            url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1600&q=80');
         background-size: cover;
-        background-position: center 38%;
-        color: #ffffff;
-        padding: 9rem 0;
+        background-position: center;
+        color: #fff;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
     }
 
     .hero-safari h1 {
-        font-size: clamp(2.5rem, 6.5vw, 3.75rem);
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-safari .lead {
+        max-width: 650px;
+        font-size: 1.2rem;
+        color: rgba(255,255,255,0.92);
+        margin-bottom: 2rem;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        padding: .55rem 1rem;
+        border-radius: 999px;
+        background: rgba(196,154,69,0.15);
+        border: 1px solid rgba(196,154,69,0.35);
+        color: #f5d28b;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .btn-safari {
+        background: var(--brand-gold);
+        border: none;
+        color: white;
         font-weight: 700;
-        letter-spacing: -0.03em;
-        line-height: 1.15;
-        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.50);
+        padding: .9rem 1.75rem;
+        border-radius: .65rem;
+        transition: .3s ease;
     }
 
-    .hero-safari p.lead {
-        color: #ffffff !important;
-        font-weight: 500;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
-        max-width: 600px;
+    .btn-safari:hover {
+        background: #A88135;
+        color: white;
+        transform: translateY(-2px);
     }
 
-    /* Override dynamic badges inside dark hero sections for optimal readability */
-    .hero-safari .brand-badge {
-        background-color: rgba(240, 247, 244, 0.15);
-        color: #f0f7f4;
-        backdrop-filter: blur(4px);
+    /* ==========================================
+       SECTION HEADER
+    ========================================== */
+
+    .section-label {
+        color: var(--brand-gold);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: .8rem;
+        font-weight: 700;
     }
 
-    /* --- Premium Expedition Card Architecture --- */
-    .tour-card-clean {
-        background: #ffffff;
-        border-radius: 8px;
-        border: 1px solid #e2e8f0;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    .section-title {
+        font-weight: 800;
+        color: var(--brand-green-dark);
+    }
+
+    /* ==========================================
+       TOUR CARDS
+    ========================================== */
+
+    .tour-card {
+        border: none;
+        border-radius: 18px;
         overflow: hidden;
+        background: white;
         height: 100%;
-        display: flex;
-        flex-direction: column;
+        transition: .3s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,.05);
     }
 
-    .tour-card-clean:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(43, 122, 75, 0.06);
-        border-color: var(--brand-green);
+    .tour-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,.12);
     }
 
-    .card-img-wrapper {
+    .tour-image {
         position: relative;
+        height: 260px;
         overflow: hidden;
-        padding-top: 60%;
-        background-color: #f1f5f9;
     }
 
-    .card-img-wrapper img {
-        position: absolute;
-        top: 0; 
-        left: 0; 
-        width: 100%; 
+    .tour-image img {
+        width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform .5s ease;
     }
 
-    .badge-price {
+    .tour-card:hover .tour-image img {
+        transform: scale(1.08);
+    }
+
+    .price-tag {
         position: absolute;
         top: 1rem;
         right: 1rem;
-        background: #ffffff;
-        color: var(--brand-green-dark);
+        background: rgba(196,154,69,.95);
+        color: white;
         font-weight: 700;
-        font-size: 0.85rem;
-        padding: 0.35rem 0.85rem;
-        border-radius: 4px;
-        border: 1px solid rgba(43, 122, 75, 0.15);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        padding: .45rem .9rem;
+        border-radius: 999px;
+    }
+
+    .tour-content {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 260px);
+    }
+
+    .tour-meta {
+        color: #64748b;
+        font-size: .9rem;
+    }
+
+    .tour-meta i {
+        color: var(--brand-green);
+    }
+
+    .btn-tour {
+        border: 2px solid var(--brand-green);
+        color: var(--brand-green);
+        font-weight: 600;
+    }
+
+    .btn-tour:hover {
+        background: var(--brand-green);
+        color: white;
+    }
+
+    /* ==========================================
+       EMPTY STATE
+    ========================================== */
+
+    .empty-state {
+        background: var(--brand-light);
+        border-radius: 16px;
+        padding: 3rem;
+        text-align: center;
+    }
+
+    .empty-state i {
+        color: var(--brand-gold);
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Welcome/Hero Block -->
+
 <section class="hero-safari">
-    <div class="container text-center text-lg-start">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-7">
-                <!-- GREEN UTILITY: Inline badge added for polished tone -->
-                <span class="brand-badge mb-3">Gateway to East Africa</span>
-                <h1 class="mb-3">Feel Your Life With Adventure</h1>
-                <p class="lead mb-4 fs-5">Immerse yourself completely in nature. Experience professional, safely managed custom itineraries and wilderness tours.</p>
-                
-                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
-                    <!-- GREEN UTILITY: Replaced custom button with unified global button -->
-                    <a href="{% url 'tours' %}" class="btn btn-success px-4 py-2.5 text-decoration-none">
-                        Explore Packages
+            <div class="col-lg-8">
+
+                <span class="hero-badge">
+                    The Pearl of Africa Awaits
+                </span>
+
+                <h1>
+                    Explore Uganda's Untamed Wilderness
+                </h1>
+
+                <p class="lead">
+                    Discover gorilla trekking, wildlife safaris,
+                    breathtaking landscapes, and unforgettable journeys
+                    curated by local experts who know East Africa best.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'tours' %}" class="btn btn-safari">
+                        Explore Tours
                     </a>
-                    <a href="{% url 'contact' %}" class="btn btn-outline-light px-4 py-2.5 fw-semibold text-decoration-none" style="border-radius: 6px; text-shadow: 0 1px 4px rgba(0,0,0,0.45);">
-                        Custom Planning
+
+                    <a href="{% url 'contact' %}"
+                       class="btn btn-outline-light px-4">
+                        Plan a Custom Safari
                     </a>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
 
-<!-- Dynamic Tour Catalog Block -->
-<section id="featured-tours" class="py-5 my-4">
+<section class="py-5">
     <div class="container">
-        
-        <div class="mb-4">
-            <!-- GREEN UTILITY: Added a section badge token -->
-            <span class="brand-badge mb-2">Curated Journeys</span>
-            <h2 class="fw-bold text-dark tracking-tight mb-1">Available Expeditions</h2>
-            <p class="text-muted small mb-0">Select an adventure designed by local wilderness experts.</p>
+
+        <div class="mb-5">
+            <div class="section-label">
+                Curated Experiences
+            </div>
+
+            <h2 class="section-title display-6">
+                Featured Safari Adventures
+            </h2>
+
+            <p class="text-muted">
+                Carefully crafted experiences showcasing the best of Uganda.
+            </p>
         </div>
 
         {% cache 300 active_expeditions_grid %}
+
         <div class="row g-4">
+
             {% for tour in tours %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="tour-card-clean">
-                        
-                        <div class="card-img-wrapper">
-                            {% if tour.image %}
-                                <img src="{{ tour.image.url }}" alt="{{ tour.title }}" loading="lazy">
-                            {% else %}
-                                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=600&q=80" alt="Placeholder" style="object-fit: cover;">
-                            {% endif %}
-                            
-                            {% if tour.price %}
-                                <span class="badge-price">${{ tour.price }}</span>
-                            {% endif %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="tour-card">
+
+                    <div class="tour-image">
+
+                        {% if tour.image %}
+                            <img src="{{ tour.image.url }}"
+                                 alt="{{ tour.title }}">
+                        {% else %}
+                            <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80"
+                                 alt="{{ tour.title }}">
+                        {% endif %}
+
+                        {% if tour.price %}
+                        <span class="price-tag">
+                            ${{ tour.price }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="tour-content">
+
+                        <div class="tour-meta mb-2">
+                            <i class="bi bi-geo-alt-fill me-1"></i>
+                            {{ tour.location|default:"Uganda" }}
                         </div>
-                        
-                        <div class="card-body p-4 d-flex flex-column flex-grow-1">
-                            <!-- GREEN UTILITY: Upgraded plain emoji placeholder to clean green-themed icon font descriptor -->
-                            <span class="text-muted d-block small fw-medium mb-1">
-                                <i class="bi bi-geo-alt-fill text-success me-1"></i>{{ tour.location|default:"Safari Preserve" }}
+
+                        <h4 class="fw-bold mb-2">
+                            {{ tour.title }}
+                        </h4>
+
+                        <p class="text-muted small mb-4">
+                            {{ tour.description|truncatewords:18 }}
+                        </p>
+
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+
+                            <span class="small text-muted">
+                                <i class="bi bi-clock me-1"></i>
+                                {{ tour.duration|default:"Custom itinerary" }}
                             </span>
-                            <h4 class="card-title fw-bold text-dark mb-2" style="font-size: 1.25rem;">{{ tour.title }}</h4>
-                            <p class="text-muted small mb-4 lh-sm">{{ tour.description|truncatewords:15 }}</p>
-                            
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
-                                <span class="small text-muted">
-                                    <!-- GREEN UTILITY: Standardized clock tracking tint -->
-                                    <i class="bi bi-clock text-success me-1"></i>{{ tour.duration|default:"Custom Days" }}
-                                </span>
-                                <!-- GREEN UTILITY: Changed local button override hook to clear global utility action -->
-                                <a href="{% url 'tour_detail' tour.id %}" class="btn btn-sm btn-outline-success px-3 py-1.5 fs-7 text-decoration-none">
-                                    View Details
-                                </a>
-                            </div>
+
+                            <a href="{% url 'tour_detail' tour.id %}"
+                               class="btn btn-sm btn-tour">
+                                View Tour
+                            </a>
+
                         </div>
 
                     </div>
+
                 </div>
+
+            </div>
+
             {% empty %}
-                <!-- Empty/Fallback Layout Hook -->
-                <div class="col-12 text-center py-5">
-                    <!-- GREEN UTILITY: Applied green-card-tint utility sticker here instead of standard white alert box -->
-                    <div class="p-4 green-card-tint rounded-3 max-width-md mx-auto" style="max-width: 500px;">
-                        <i class="bi bi-compass text-success fs-2 d-block mb-2"></i>
-                        <p class="text-muted small mb-0">Tour packages are currently loading. Please check back shortly or initialize content inside your administration portal.</p>
-                    </div>
+
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="bi bi-compass fs-1 mb-3"></i>
+                    <h5>No Adventures Available Yet</h5>
+                    <p class="text-muted mb-0">
+                        New safari experiences will appear here soon.
+                    </p>
                 </div>
+            </div>
+
             {% endfor %}
+
         </div>
+
         {% endcache %}
 
     </div>
 </section>
+
 {% endblock %}
