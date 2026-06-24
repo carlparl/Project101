@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,25 +32,37 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-white bg-white border-bottom fixed-top shadow-sm py-2">
-            <div class="container">
-                <a class="navbar-brand fw-bold text-dark d-flex align-items-center gap-2" href="{% url 'home' %}">
-                    <i class="bi bi-compass-fill" style="color: var(--brand-green);"></i>
-                    <span>SHAFNET TOURS</span>
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigationMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNavigationMenu">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
-                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'tours' %}">Safaris</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'about' %}">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="{% url 'contact' %}">Contact</a></li>
-                    </ul>
-                </div>
+        <!-- Navigation Architecture -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+    <div class="container">
+        
+<!-- Premium Logo Wrapper -->
+<a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}" style="padding: 0; margin: 0;">
+    <img src="{% static 'images/logo.png' %}" 
+         alt="Shafnet Tours & Travel Logo" 
+         loading="eager"
+         style="height: 80px !important; width: auto !important; object-fit: contain;"
+         onerror="this.onerror=null; this.insertAdjacentHTML('afterend', '<span class=\'fw-bold brand-green-text fs-4\'>Shafnet Tours</span>'); this.remove();">
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu Links -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <div class="navbar-nav ms-auto gap-2 text-center text-lg-start pt-3 pt-lg-0">
+                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'tours' %}active{% endif %}" href="{% url 'tours' %}">Tours</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'gallery' %}active{% endif %}" href="{% url 'gallery' %}">Gallery</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About Story</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
             </div>
-        </nav>
+        </div>
+
+    </div>
+</nav>
     </header>
 
     <div class="container" style="margin-top: 5.5rem; margin-bottom: -4.5rem; position: relative; z-index: 1050;">

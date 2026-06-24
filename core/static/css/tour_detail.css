@@ -222,3 +222,23 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* --- New Mobile Breakpoint --- */
+@media (max-width: 768px) {
+    .tour-hero {
+        height: 300px; 
+    }
+
+    .hero-overlay h1 {
+        font-size: 2rem; 
+    }
+
+    .content-card {
+        padding: 20px; 
+    }
+    
+    .tour-meta {
+        font-size: 0.95rem;
+        gap: 10px;
+    }
+}

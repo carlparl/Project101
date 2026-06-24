@@ -6,5 +6,6 @@ urlpatterns = [
     path('safaris/', views.tours_list, name='tours'), # Named 'tours' for template link compatibility
     path('safaris/<int:tour_id>/', views.tour_detail, name='tour_detail'), # Linked seamlessly with view parameter
     path('about/', views.about, name='about'),
+    path('gallery/', views.gallery_view, name='gallery'),
     path('contact/', views.contact, name='contact'),
 ]

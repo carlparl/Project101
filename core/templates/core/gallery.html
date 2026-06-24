@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Captured Adventures Gallery | Shafnet Tours{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* --- Premium Header Frame --- */
+    .gallery-hero {
+        background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+                    url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=80') no-repeat center center / cover;
+        padding: 6rem 0 4rem 0;
+        color: #ffffff;
+    }
+
+    /* --- Interactive Gallery Grid --- */
+    .gallery-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+        cursor: pointer;
+    }
+
+    .gallery-img-wrapper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .gallery-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* --- Premium Safari Green Overlay Reveal --- */
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top, 
+            rgba(43, 122, 75, 0.9) 0%, 
+            rgba(15, 23, 42, 0.4) 100%
+        );
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.5rem;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    /* Hover States */
+    .gallery-card:hover .gallery-img-wrapper img {
+        transform: scale(1.08);
+    }
+
+    .gallery-card:hover .gallery-overlay {
+        opacity: 1;
+    }
+
+    /* Filter Pills Accent override */
+    .nav-pills .nav-link.active {
+        background-color: var(--brand-green) !important;
+        color: white !important;
+    }
+    .nav-pills .nav-link {
+        color: #64748b;
+        font-weight: 500;
+        font-size: 0.9rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 30px;
+        padding: 0.4rem 1.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header Hero -->
+<section class="gallery-hero text-center">
+    <div class="container">
+        <span class="brand-badge mb-2">Visual Journeys</span>
+        <h1 class="fw-bold tracking-tight m-0" style="font-size: clamp(2rem, 5vw, 3rem);">Captured Moments</h1>
+        <p class="text-white-50 max-width-md mx-auto mt-2 mb-0" style="max-width: 550px;">
+            A raw glimpse into the breathtaking landscapes, incredible wildlife, and vibrant cultures of East Africa.
+        </p>
+    </div>
+</section>
+
+<!-- Main Gallery Interface -->
+<section class="py-5 bg-light-subtle">
+    <div class="container">
+        
+        <!-- Category Filter Row (Ready for customization) -->
+        <div class="d-flex justify-content-center mb-5">
+            <ul class="nav nav-pills gap-2">
+                <li class="nav-item"><a href="#" class="nav-link active">All Expeditions</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Wildlife</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Landscapes</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Cultural</a></li>
+            </ul>
+        </div>
+
+        <!-- Layout Matrix -->
+        <div class="row g-4">
+            
+            <!-- Item 1: Lion -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1614027164847-1b2809eb7b9b?auto=format&fit=crop&w=800&q=80" alt="Serengeti Lion">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Wildlife</span>
+                        <h5 class="fw-bold m-0">Apex Majesty</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Serengeti National Park</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2: Elephant -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80" alt="Amboseli Elephants">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Wildlife</span>
+                        <h5 class="fw-bold m-0">Giants of Amboseli</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Amboseli Basin</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3: Landscape Safari Jeep -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80" alt="Savannah Sunset">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Landscapes</span>
+                        <h5 class="fw-bold m-0">The Golden Hour Track</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Maasai Mara Reserve</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4: Cheetah -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80" alt="Cheetah in high grass">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Wildlife</span>
+                        <h5 class="fw-bold m-0">Stealth Horizon</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Tsavo East</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5: Zebra Group -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1501705388883-4ed8a543392c?auto=format&fit=crop&w=800&q=80" alt="Zebras grazing">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Wildlife</span>
+                        <h5 class="fw-bold m-0">Patterns of the Wild</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Ngorongoro Crater</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6: Luxury Safari Camp -->
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=800&q=80" alt="Luxury Camp Vista">
+                    </div>
+                    <div class="gallery-overlay text-white">
+                        <span class="small fw-semibold tracking-wider text-uppercase text-white-50 mb-1">Cultural / Lodges</span>
+                        <h5 class="fw-bold m-0">Wilderness Oasis</h5>
+                        <p class="small text-white-50 m-0 pt-1"><i class="bi bi-geo-alt-fill me-1 text-success"></i>Serengeti Luxury Outpost</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

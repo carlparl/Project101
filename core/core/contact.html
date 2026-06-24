@@ -5,9 +5,9 @@
 
 {% block extra_css %}
 <style>
-    /* --- Optimized Page Layout Architecture --- */
+    /* Prevent sticky navbar from overlapping form headers */
     .contact-page-wrapper {
-        padding: 3.5rem 0 5rem 0; /* Reduced from 6rem to eliminate unnecessary white space gaps */
+        padding: 3rem 0 5rem 0;
         background-color: #f8fafc;
     }
 
@@ -20,23 +20,63 @@
         box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
     }
 
-    /* Info Core Layout Elements */
+    /* Style Definitions for custom widgets passed from forms.py */
+    .premium-input {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #0f172a;
+        background-color: #ffffff;
+        background-clip: padding-box;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .premium-input:focus {
+        color: #0f172a;
+        background-color: #ffffff;
+        border-color: #2b7a4b; /* Deep Brand Green */
+        outline: 0;
+        box-shadow: 0 0 0 4px rgba(43, 122, 75, 0.12);
+    }
+
+    .premium-input[readonly] {
+        background-color: #f1f5f9;
+        color: #64748b;
+        cursor: not-allowed;
+    }
+
+    /* Typography & Visual Details */
+    .brand-accent-text {
+        color: #2b7a4b;
+        font-size: 0.825rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
     .info-item {
         display: flex;
         gap: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.75rem;
     }
 
     .info-icon {
         width: 40px;
         height: 40px;
-        background: var(--brand-green-light);
-        color: var(--brand-green);
+        background: rgba(43, 122, 75, 0.1);
+        color: #2b7a4b;
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         flex-shrink: 0;
     }
 </style>
@@ -61,16 +101,12 @@
 
         <div class="row g-5 justify-content-center">
             
-            <!-- Left Column: Context Details (Alignment fixed to top to eliminate huge white space) -->
-            <div class="col-lg-5 col-xl-4 pt-lg-3">
-                <!-- SYSTEM ACCENT: Upgraded from plain custom text to global brand badge token -->
-                <span class="brand-badge mb-3">Expedition Manifest</span>
-                <h1 class="fw-bold text-dark mb-3" style="font-size: 2.5rem; letter-spacing: -0.02em;">Ready to Plan Your Journey?</h1>
-                <p class="text-muted mb-4">
+            <div class="col-lg-5 col-xl-4 d-flex flex-column justify-content-center">
+                <span class="brand-accent-text">Expedition Manifest</span>
+                <h1 class="fw-bold text-dark mb-4" style="font-size: 2.5rem; letter-spacing: -0.02em;">Ready to Plan Your Journey?</h1>
+                <p class="text-muted mb-5">
                     Submit your parameters using our logistics desk. Our localized tracking specialists analyze incoming itineraries matching precise routing scale, physical pace constraints, and equipment configurations.
                 </p>
-
-                <hr class="border-light-subtle my-4 d-none d-lg-block">
 
                 <div class="info-item">
                     <div class="info-icon">
@@ -103,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Right Column: Interactive Form Module -->
             <div class="col-lg-7 col-xl-7">
                 <div class="premium-card">
                     <h3 class="fw-bold text-dark mb-2" style="letter-spacing: -0.01em;">Configure Blueprint</h3>
@@ -170,8 +205,7 @@
                             </div>
 
                             <div class="col-12 mt-4">
-                                <!-- SYSTEM ACCENT: Cleaned up hardcoded hex values to hook directly into style.css global engines -->
-                                <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold">
+                                <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold" style="background-color: #2b7a4b; border-color: #2b7a4b; border-radius: 8px;">
                                     Transmit Manifest Details
                                 </button>
                             </div>

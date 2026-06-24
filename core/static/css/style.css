@@ -1,9 +1,143 @@
-.navbar-brand img{
-    max-height:80px;
-    width:auto;
+/* ==========================================================================
+   SHAFNET TOURS - GLOBAL BASE STYLE & PREMIUM DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+    --brand-green: #2b7a4b;        /* Core Deep Ugandan Safari Green */
+    --brand-green-hover: #1f5c37;  /* Deep hover state */
+    --brand-green-light: #f0f7f4;  /* Premium soft sage/mint tint background */
+    --brand-green-dark: #163f26;   /* Rich typographic contrast green */
+    --text-slate: #475569;
 }
 
-.navbar{
-    padding-top:10px;
-    padding-bottom:10px;
+/* --- Global Media Elements --- */
+/* Ensure images never break out of containers on mobile */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- Global Text Accents --- */
+.text-success, .brand-green-text {
+    color: var(--brand-green) !important;
+}
+
+
+/* ==========================================================================
+   NAVIGATION ARCHITECTURE (FIXED HEIGHT OVERHAUL)
+   ========================================================================== */
+
+.navbar {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid rgba(43, 122, 75, 0.08)[cite: 2];
+    background-color: #ffffff !important;[cite: 2]
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.02);
+}
+
+/* Authoritative height clamp on desktop viewports to destroy empty white spaces */
+@media (min-width: 992px) {
+    .navbar {
+        height: 70px !important;
+    }
+}
+
+/* Ensure the navbar logo scales cleanly without expanding the wrapper */
+.navbar-brand img {
+    height: 45px !important;
+    max-height: 45px !important;
+    width: auto !important;
+    object-fit: contain;
+    display: block;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-slate);[cite: 2]
+    font-weight: 500;[cite: 2]
+    transition: color 0.2s ease;[cite: 2]
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--brand-green) !important;[cite: 2]
+}
+
+
+/* ==========================================================================
+   DYNAMIC FORM COMPONENTS (FOR FORMS.PY)
+   ========================================================================== */
+
+/* Form Styles for Forms.py (Responsive & Mobile Friendly) */
+.premium-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 1rem;
+}
+
+.premium-input:focus {
+    border-color: var(--brand-green);
+    box-shadow: 0 0 0 0.25rem rgba(43, 122, 75, 0.25);
+    outline: none;
+}
+
+
+/* ==========================================================================
+   UNIFIED BRAND ACTION BUTTONS (BOOTSTRAP OVERRIDES)
+   ========================================================================== */
+
+/* Automatically maps standard green/primary actions to signature theme color */
+.btn-success, .btn-primary {
+    background-color: var(--brand-green) !important;
+    border-color: var(--brand-green) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-success:hover, .btn-primary:hover,
+.btn-success:focus, .btn-primary:focus {
+    background-color: var(--brand-green-hover) !important;
+    border-color: var(--brand-green-hover) !important;
+    box-shadow: 0 0 0 4px rgba(43, 122, 75, 0.15) !important;
+}
+
+/* Secondary Outline Button Variations */
+.btn-outline-success {
+    color: var(--brand-green) !important;
+    border-color: var(--brand-green) !important;
+    font-weight: 600;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--brand-green) !important;
+    color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   THEME DESIGN VISUALS & UTILITIES
+   ========================================================================== */
+
+/* Custom Dynamic Badge/Sub-headings */
+.brand-badge {
+    background-color: var(--brand-green-light);
+    color: var(--brand-green-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+/* Theme Cards & Content Interstitials */
+.green-card-tint {
+    background-color: var(--brand-green-light);
+    border: 1px solid rgba(43, 122, 75, 0.12);
 }

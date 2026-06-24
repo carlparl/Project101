@@ -1,64 +1,42 @@
-{% extends 'base_2.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Request a Custom Itinerary | Shafnet Tours & Travel{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* Prevent sticky navbar from overlapping form headers */
+    /* --- Optimized Page Layout Architecture --- */
     .contact-page-wrapper {
-        padding: 6rem 0 5rem 0;
-        background-color: #ffffff;
-    }
-
-    .contact-badge {
-        color: var(--brand-green);
-        letter-spacing: 2px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        display: inline-block;
-        margin-bottom: 0.75rem;
-    }
-
-    /* Interactive Form Input Architecture */
-    .form-control-premium {
+        padding: 3.5rem 0 5rem 0; /* Reduced from 6rem to eliminate unnecessary white space gaps */
         background-color: #f8fafc;
+    }
+
+    /* Premium Form Card Layout */
+    .premium-card {
+        background: #ffffff;
         border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
-        color: #0f172a;
-        transition: all 0.25s ease;
-        display: block;
-        width: 100%;
+        border-radius: 16px;
+        padding: 3rem 2.5rem;
+        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
     }
 
-    .form-control-premium:focus {
-        background-color: #ffffff;
-        border-color: var(--brand-green);
-        box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
-        outline: none;
+    /* Info Core Layout Elements */
+    .info-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
     }
 
-    /* Floating Detail Card Components */
-    .info-sidebar-card {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 14px;
-        padding: 2rem;
-    }
-
-    .contact-icon-wrapper {
+    .info-icon {
         width: 40px;
         height: 40px;
-        background-color: rgba(43, 122, 75, 0.1);
+        background: var(--brand-green-light);
         color: var(--brand-green);
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         flex-shrink: 0;
     }
 </style>
@@ -67,158 +45,142 @@
 {% block content %}
 <div class="contact-page-wrapper">
     <div class="container">
-        <div class="row g-5">
-            
-            <div class="col-lg-7">
-                <span class="contact-badge">Reservation Desk</span>
-                <h1 class="fw-bold text-dark mb-3" style="letter-spacing: -0.025em; font-size: 2.5rem;">Request a Custom Itinerary</h1>
-                <p class="text-muted mb-4">Submit your baseline transit schedule, expected pacing requirements, and group parameters. Our operational team will reply with a verified path configuration within 12 hours[cite: 12].</p>
-
-                <form method="POST" action="{% url 'contact' %}" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Full Name</label>
-                            <input type="text" name="name" class="form-control-premium" placeholder="John Doe" value="{{ form.name.value|default:'' }}" required>
-                            {% if form.name.errors %}
-                                <div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>
-                            {% endif %}
+        
+        {% if messages %}
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-11">
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 py-3" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Email Address</label>
-                            <input type="email" name="email" class="form-control-premium" placeholder="johndoe@example.com" value="{{ form.email.value|default:'' }}" required>
-                            {% if form.email.errors %}
-                                <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Phone Contact</label>
-                            <input type="tel" name="phone" class="form-control-premium" placeholder="+256 ..." value="{{ form.phone.value|default:'' }}">
-                            {% if form.phone.errors %}
-                                <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Select Safari Target</label>
-                            <select name="tour_selection" class="form-select form-control-premium">
-                                <option value="" selected disabled>Choose planned destination...</option>
-                                {% for tour in tours %}
-                                    <option value="{{ tour.title }}" {% if form.tour_selection.value == tour.title %}selected{% endif %}>{{ tour.title }}</option>
-                                {% empty %}
-                                    <option value="custom">Custom Tailored Route Profile</option>
-                                {% endfor %}
-                            </select>
-                            {% if form.tour_selection.errors %}
-                                <div class="text-danger small mt-1">{{ form.tour_selection.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Target Start Date</label>
-                            <input type="date" name="start_date" class="form-control-premium" value="{{ form.start_date.value|default:'' }}">
-                            {% if form.start_date.errors %}
-                                <div class="text-danger small mt-1">{{ form.start_date.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold text-dark">Estimated Group Size</label>
-                            <input type="number" name="group_size" class="form-control-premium" min="1" max="50" placeholder="1" value="{{ form.group_size.value|default:'1' }}">
-                            {% if form.group_size.errors %}
-                                <div class="text-danger small mt-1">{{ form.group_size.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label small fw-semibold text-dark">Custom Requirements & Logistics Constraints</label>
-                            <textarea name="message" class="form-control-premium" rows="5" placeholder="Specify packing needs, vehicle preferences, camera gear space requirements, or physical accommodation limitations..." required>{{ form.message.value|default:'' }}</textarea>
-                            {% if form.message.errors %}
-                                <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="col-12 pt-2">
-                            <button type="submit" class="btn text-white px-4 py-2.5 fw-medium" style="background-color: var(--brand-green); border-radius: 6px;">
-                                Submit Verification Request <i class="bi bi-arrow-right ms-2"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    {% endfor %}
+                </div>
             </div>
+        {% endif %}
 
-            <div class="col-lg-5 col-xl-4 ms-auto">
-                <div class="info-sidebar-card d-flex flex-column gap-4">
+        <div class="row g-5 justify-content-center">
+            
+            <!-- Left Column: Context Details (Alignment fixed to top to eliminate huge white space) -->
+            <div class="col-lg-5 col-xl-4 pt-lg-3">
+                <!-- SYSTEM ACCENT: Upgraded from plain custom text to global brand badge token -->
+                <span class="brand-badge mb-3">Expedition Manifest</span>
+                <h1 class="fw-bold text-dark mb-3" style="font-size: 2.5rem; letter-spacing: -0.02em;">Ready to Plan Your Journey?</h1>
+                <p class="text-muted mb-4">
+                    Submit your parameters using our logistics desk. Our localized tracking specialists analyze incoming itineraries matching precise routing scale, physical pace constraints, and equipment configurations.
+                </p>
+
+                <hr class="border-light-subtle my-4 d-none d-lg-block">
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="bi bi-envelope-open-fill"></i>
+                    </div>
                     <div>
-                        <h5 class="fw-bold text-dark mb-1" style="font-size: 1.15rem;">Direct Assistance</h5>
-                        <p class="text-muted small mb-0">Connect directly with our primary logistics coordinators[cite: 12].</p>
-                    </div>
-
-                    <hr class="my-0 border-light-subtle">
-
-                    <div class="d-flex gap-3 align-items-start">
-                        <div class="contact-icon-wrapper">
-                            <i class="bi bi-envelope-open-fill"></i>
-                        </div>
-                        <div>
-                            <span class="text-muted d-block small fw-medium">Electronic Communications</span>
-                            <a href="mailto:Shafnettours@gmail.com" class="text-dark fw-semibold text-decoration-none small">Shafnettours@gmail.com</a>
-                        </div>
-                    </div>
-
-                    <div class="d-flex gap-3 align-items-start">
-                        <div class="contact-icon-wrapper">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div>
-                            <span class="text-muted d-block small fw-medium">Operational Dispatch Lines</span>
-                            <span class="text-dark fw-semibold d-block small">+256 757 226513</span>
-                            <span class="text-dark fw-semibold d-block small">+256 789 472229</span>
-                            <span class="text-dark fw-semibold d-block small">+256 703 410919</span>
-                            <span class="text-muted fs-7 d-block">Available 24/7 for active en-route support[cite: 12].</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex gap-3 align-items-start">
-                        <div class="contact-icon-wrapper">
-                            <i class="bi bi-geo-alt-fill"></i>
-                        </div>
-                        <div>
-                            <span class="text-muted d-block small fw-medium">Headquarters Location</span>
-                            <span class="text-dark fw-semibold d-block small">Kampala, Uganda[cite: 12]</span>
-                            <span class="text-muted fs-7 d-block">Managing tracks across East Africa[cite: 12].</span>
-                        </div>
+                        <h6 class="fw-bold text-dark mb-0">Operations Dispatch</h6>
+                        <small class="text-muted">operations@shafnettours.com</small>
                     </div>
                 </div>
 
-                <div class="mt-4 p-3 border rounded-3 bg-light-subtle">
-                    <p class="text-muted mb-0 fs-7 lh-sm">
-                        <i class="bi bi-info-circle-fill me-1 text-secondary"></i>
-                        <strong>Satellite Tracking Enabled:</strong> All vehicles configured under our fleet directory maintain live active tracking link indicators for secure logistics coordination[cite: 12].
-                    </p>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">24/7 Field Support Line</h6>
+                        <small class="text-muted">+256 700 000000</small>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">Kampala Ground Station</h6>
+                        <small class="text-muted">Plot 4, Kampala Road, Uganda</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Form Module -->
+            <div class="col-lg-7 col-xl-7">
+                <div class="premium-card">
+                    <h3 class="fw-bold text-dark mb-2" style="letter-spacing: -0.01em;">Configure Blueprint</h3>
+                    <p class="text-muted small mb-4">All data profiles securely route through protected administrative nodes.</p>
+                    
+                    <form method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Full Name</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Email Address</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Phone Number</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Selected Package</label>
+                                {{ form.tour_selection }}
+                                {% if form.tour_selection.errors %}
+                                    <div class="text-danger small mt-1">{{ form.tour_selection.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Target Departure Date</label>
+                                {{ form.start_date }}
+                                {% if form.start_date.errors %}
+                                    <div class="text-danger small mt-1">{{ form.start_date.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold text-secondary">Group Scale (Travelers)</label>
+                                {{ form.group_size }}
+                                {% if form.group_size.errors %}
+                                    <div class="text-danger small mt-1">{{ form.group_size.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold text-secondary">Expedition Notes & Custom Adjustments</label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <!-- SYSTEM ACCENT: Cleaned up hardcoded hex values to hook directly into style.css global engines -->
+                                <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold">
+                                    Transmit Manifest Details
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
-<script>
-    (() => {
-      'use strict'
-      const forms = document.querySelectorAll('.needs-validation')
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
-        }, false)
-      })
-    })()
-</script>
 {% endblock %}

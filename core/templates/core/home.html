@@ -37,36 +37,11 @@
         max-width: 600px;
     }
 
-    /* --- Interactive Brand Components --- */
-    .btn-brand {
-        background-color: var(--brand-green, #2b7a4b);
-        color: #ffffff !important;
-        border: 2px solid var(--brand-green, #2b7a4b);
-        border-radius: 6px;
-        font-weight: 600;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .btn-brand:hover {
-        background-color: #215d39;
-        border-color: #215d39;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(43, 122, 75, 0.35);
-    }
-
-    .btn-outline-brand {
-        background-color: transparent;
-        color: var(--brand-green, #2b7a4b) !important;
-        border: 2px solid var(--brand-green, #2b7a4b);
-        border-radius: 6px;
-        font-weight: 600;
-        transition: all 0.25s ease;
-    }
-
-    .btn-outline-brand:hover {
-        background-color: var(--brand-green, #2b7a4b);
-        color: #ffffff !important;
+    /* Override dynamic badges inside dark hero sections for optimal readability */
+    .hero-safari .brand-badge {
+        background-color: rgba(240, 247, 244, 0.15);
+        color: #f0f7f4;
+        backdrop-filter: blur(4px);
     }
 
     /* --- Premium Expedition Card Architecture --- */
@@ -83,8 +58,8 @@
 
     .tour-card-clean:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
-        border-color: #cbd5e1;
+        box-shadow: 0 12px 24px rgba(43, 122, 75, 0.06);
+        border-color: var(--brand-green);
     }
 
     .card-img-wrapper {
@@ -108,27 +83,31 @@
         top: 1rem;
         right: 1rem;
         background: #ffffff;
-        color: #0f172a;
-        font-weight: 600;
+        color: var(--brand-green-dark);
+        font-weight: 700;
         font-size: 0.85rem;
         padding: 0.35rem 0.85rem;
         border-radius: 4px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(43, 122, 75, 0.15);
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- Welcome/Hero Block -->
 <section class="hero-safari">
     <div class="container text-center text-lg-start">
         <div class="row">
             <div class="col-lg-7">
+                <!-- GREEN UTILITY: Inline badge added for polished tone -->
+                <span class="brand-badge mb-3">Gateway to East Africa</span>
                 <h1 class="mb-3">Feel Your Life With Adventure</h1>
                 <p class="lead mb-4 fs-5">Immerse yourself completely in nature. Experience professional, safely managed custom itineraries and wilderness tours.</p>
                 
                 <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
-                    <a href="{% url 'tours' %}" class="btn btn-brand px-4 py-2.5 text-decoration-none">
+                    <!-- GREEN UTILITY: Replaced custom button with unified global button -->
+                    <a href="{% url 'tours' %}" class="btn btn-success px-4 py-2.5 text-decoration-none">
                         Explore Packages
                     </a>
                     <a href="{% url 'contact' %}" class="btn btn-outline-light px-4 py-2.5 fw-semibold text-decoration-none" style="border-radius: 6px; text-shadow: 0 1px 4px rgba(0,0,0,0.45);">
@@ -140,10 +119,13 @@
     </div>
 </section>
 
+<!-- Dynamic Tour Catalog Block -->
 <section id="featured-tours" class="py-5 my-4">
     <div class="container">
         
         <div class="mb-4">
+            <!-- GREEN UTILITY: Added a section badge token -->
+            <span class="brand-badge mb-2">Curated Journeys</span>
             <h2 class="fw-bold text-dark tracking-tight mb-1">Available Expeditions</h2>
             <p class="text-muted small mb-0">Select an adventure designed by local wilderness experts.</p>
         </div>
@@ -167,15 +149,20 @@
                         </div>
                         
                         <div class="card-body p-4 d-flex flex-column flex-grow-1">
-                            <span class="text-muted d-block small fw-medium mb-1">📍 {{ tour.location|default:"Safari Preserve" }}</span>
+                            <!-- GREEN UTILITY: Upgraded plain emoji placeholder to clean green-themed icon font descriptor -->
+                            <span class="text-muted d-block small fw-medium mb-1">
+                                <i class="bi bi-geo-alt-fill text-success me-1"></i>{{ tour.location|default:"Safari Preserve" }}
+                            </span>
                             <h4 class="card-title fw-bold text-dark mb-2" style="font-size: 1.25rem;">{{ tour.title }}</h4>
                             <p class="text-muted small mb-4 lh-sm">{{ tour.description|truncatewords:15 }}</p>
                             
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
                                 <span class="small text-muted">
-                                    <i class="bi bi-clock me-1"></i>{{ tour.duration|default:"Custom Days" }}
+                                    <!-- GREEN UTILITY: Standardized clock tracking tint -->
+                                    <i class="bi bi-clock text-success me-1"></i>{{ tour.duration|default:"Custom Days" }}
                                 </span>
-                                <a href="{% url 'tour_detail' tour.id %}" class="btn btn-sm btn-outline-brand px-3 py-1.5 fs-7 text-decoration-none">
+                                <!-- GREEN UTILITY: Changed local button override hook to clear global utility action -->
+                                <a href="{% url 'tour_detail' tour.id %}" class="btn btn-sm btn-outline-success px-3 py-1.5 fs-7 text-decoration-none">
                                     View Details
                                 </a>
                             </div>
@@ -184,9 +171,11 @@
                     </div>
                 </div>
             {% empty %}
+                <!-- Empty/Fallback Layout Hook -->
                 <div class="col-12 text-center py-5">
-                    <div class="p-4 border rounded-3 bg-light max-width-md mx-auto" style="max-width: 500px;">
-                        <i class="bi bi-compass text-muted fs-2 d-block mb-2"></i>
+                    <!-- GREEN UTILITY: Applied green-card-tint utility sticker here instead of standard white alert box -->
+                    <div class="p-4 green-card-tint rounded-3 max-width-md mx-auto" style="max-width: 500px;">
+                        <i class="bi bi-compass text-success fs-2 d-block mb-2"></i>
                         <p class="text-muted small mb-0">Tour packages are currently loading. Please check back shortly or initialize content inside your administration portal.</p>
                     </div>
                 </div>

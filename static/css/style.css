@@ -1,6 +1,9 @@
-.navbar-brand img{
-    max-height:80px;
-    width:auto;
+/* Ensure the navbar logo scales cleanly */
+.navbar-brand img {
+    max-height: 50px;  /* Changed from 80px to 50px to make it smaller */
+    width: auto;
+    max-width: 100%;
+    transition: max-height 0.2s ease; /* Optional: smooth resizing */
 }
 
 .navbar{

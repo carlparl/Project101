@@ -13,7 +13,7 @@
             rgba(15, 23, 42, 0.75) 0%,
             rgba(15, 23, 42, 0.50) 100%
         ),
-        url('{% if tour.image %}{{ tour.image.url }}{% else %}https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=80{% endif %}') no-repeat center center / cover;
+        url('{% if tour.image %}{{ tour.image.url }}{% else %}https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=80{% endif %}') no-repeat center center / cover;
         padding-top: 6rem;
     }
 
@@ -41,14 +41,14 @@
         top: 6.5rem;
         background-color: #ffffff;
         border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        border-radius: 16px;
+        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
     }
 
     .form-control-premium {
         background-color: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-radius: 6px;
+        border-radius: 8px;
         padding: 0.65rem 0.85rem;
         font-size: 0.9rem;
         color: #0f172a;
@@ -60,7 +60,7 @@
     .form-control-premium:focus {
         background-color: #ffffff;
         border-color: var(--brand-green);
-        box-shadow: 0 0 0 3px rgba(43, 122, 75, 0.15);
+        box-shadow: 0 0 0 4px rgba(43, 122, 75, 0.12);
         outline: none;
     }
 
@@ -122,6 +122,8 @@
         <!-- Left Column: Detailed Overview & Track Itinerary -->
         <div class="col-lg-7 col-xl-8">
             <div class="mb-5">
+                <!-- THEME UPDATE: Added brand matching segment token -->
+                <span class="brand-badge mb-2">Expedition Dossier</span>
                 <h3 class="fw-bold text-dark mb-3">Expedition Overview</h3>
                 <p class="text-muted lh-lg">{{ tour.description }}</p>
             </div>
@@ -130,6 +132,8 @@
 
             <!-- Itinerary Timeline Section -->
             <div>
+                <!-- THEME UPDATE: Added brand tracking token -->
+                <span class="brand-badge mb-2">Waypoint Mapping</span>
                 <h3 class="fw-bold text-dark mb-4">Planned Route Schedule</h3>
                 <div class="itinerary-timeline">
                     
@@ -165,39 +169,41 @@
 
                     <div class="d-flex flex-column gap-3">
                         <div>
-                            <label class="form-label small fw-semibold text-dark">Full Name</label>
+                            <label class="form-label small fw-semibold text-secondary">Full Name</label>
                             <input type="text" name="name" class="form-control-premium" placeholder="John Doe" required>
                         </div>
 
                         <div>
-                            <label class="form-label small fw-semibold text-dark">Email Address</label>
+                            <label class="form-label small fw-semibold text-secondary">Email Address</label>
                             <input type="email" name="email" class="form-control-premium" placeholder="johndoe@example.com" required>
                         </div>
 
                         <div class="row g-2">
                             <div class="col-6">
-                                <label class="form-label small fw-semibold text-dark">Start Date</label>
+                                <label class="form-label small fw-semibold text-secondary">Start Date</label>
                                 <input type="date" name="start_date" class="form-control-premium" required>
                             </div>
                             <div class="col-6">
-                                <label class="form-label small fw-semibold text-dark">Group Size</label>
+                                <label class="form-label small fw-semibold text-secondary">Group Size</label>
                                 <input type="number" name="group_size" class="form-control-premium" min="1" max="50" value="1" required>
                             </div>
                         </div>
 
                         <div>
-                            <label class="form-label small fw-semibold text-dark">Operational Special Requests</label>
+                            <label class="form-label small fw-semibold text-secondary">Operational Special Requests</label>
                             <textarea name="message" class="form-control-premium" rows="3" placeholder="Specify logistical requests, gear spaces, or dietary constraints..." required></textarea>
                         </div>
 
-                        <button type="submit" class="btn text-white w-100 py-2 fw-medium mt-2" style="background-color: var(--brand-green); border-radius: 6px; font-size: 0.95rem;">
+                        <!-- THEME UPDATE: Migrated to your centralized global green button utility layout -->
+                        <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold mt-2">
                             Initialize Booking Request
                         </button>
                     </div>
                 </form>
 
                 <div class="mt-4 pt-3 border-top text-center">
-                    <span class="text-muted fs-7"><i class="bi bi-shield-check me-1 text-success"></i> Secure 12-Hour Operational Callback Guaranteed</span>
+                    <!-- THEME UPDATE: Injected the success micro accent marker color system -->
+                    <span class="text-muted fs-7"><i class="bi bi-shield-check-fill text-success me-1"></i> Secure 12-Hour Operational Callback Guaranteed</span>
                 </div>
             </div>
         </div>
